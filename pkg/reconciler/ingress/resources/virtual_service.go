@@ -182,7 +182,7 @@ func makeVirtualServiceRoute(hosts sets.Set[string], http *v1alpha1.HTTPIngressP
 
 		weights = append(weights, &istiov1beta1.HTTPRouteDestination{
 			Destination: &istiov1beta1.Destination{
-				Host: serviceHostName,
+				Host: fmt.Sprintf("%s.%s.svc.%s", split.ServiceName, split.ServiceNamespace, serviceHostName),
 				Port: &istiov1beta1.PortSelector{
 					//nolint:gosec // ignore integer overflow
 					Number: uint32(split.ServicePort.IntValue()),
